@@ -31,17 +31,19 @@ logging.getLogger("werkzeug").setLevel(logging.WARNING)
 logging.getLogger().setLevel(logging.WARNING)
 
 theme = webviz_config.WebvizConfigTheme("default")
-theme.from_json((Path(__file__).resolve().parent / "theme_settings.json").read_text())
+theme.from_json((Path(__file__).resolve().parent /
+                 "theme_settings.json").read_text())
 
 app = dash.Dash(__name__, external_stylesheets=theme.external_stylesheets)
 server = app.server
 
 app.title = "FMU (Fast Model Update) Webviz Example"
-app.config.suppress_callback_exceptions = False
+app.config.suppress_callback_exceptions = True
 
 app.webviz_settings = {
     "shared_settings": webviz_config.SHARED_SETTINGS_SUBSCRIPTIONS.transformed_settings(
-        {'scratch_ensembles': {'sens_run': '../reek_fullmatrix/realization-*/iter-0', 'iter-0': '../reek_history_match/realization-*/iter-0', 'iter-1': '../reek_history_match/realization-*/iter-1', 'iter-2': '../reek_history_match/realization-*/iter-2', 'iter-3': '../reek_history_match/realization-*/iter-3'}}, PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples'), True
+        {'scratch_ensembles': {'sens_run': '../reek_fullmatrix/realization-*/iter-0', 'iter-0': '../reek_history_match/realization-*/iter-0', 'iter-1': '../reek_history_match/realization-*/iter-1',
+                               'iter-2': '../reek_history_match/realization-*/iter-2', 'iter-3': '../reek_history_match/realization-*/iter-3'}}, PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples'), True
     ),
     "portable": True,
     "theme": theme,
@@ -49,7 +51,8 @@ app.webviz_settings = {
 
 CACHE.init_app(server)
 
-Talisman(server, content_security_policy=theme.csp, feature_policy=theme.feature_policy)
+Talisman(server, content_security_policy=theme.csp,
+         feature_policy=theme.feature_policy)
 
 WEBVIZ_STORAGE.use_storage = True
 WEBVIZ_STORAGE.storage_folder = path.join(
@@ -71,73 +74,90 @@ else:
         content_className="pageWrapper",
         vertical=True,
         children=[
-          
+
             dcc.Tab(id="logo",
-                className="styledLogo",children=[
-                  standard_plugins.BannerImage(**{'image': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/reek_image.jpg'), 'title': 'Reek FMU Webviz example'}).plugin_layout(contact_person=None),
-                  standard_plugins.Markdown(**{'markdown_file': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/front_page.md')}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="sensitivity_study_inplace",label="Sensitivity study (inplace)",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.InplaceVolumesOneByOne(app=app, **{'ensembles': ['sens_run'], 'volfiles': {'geogrid': 'geogrid--oil.csv', 'simgrid': 'simgrid--oil.csv'}}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="sensitivity_study_time_series",label="Sensitivity study (time series)",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.ReservoirSimulationTimeSeriesOneByOne(app=app, **{'ensembles': ['sens_run'], 'initial_vector': 'FOPT'}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="inplace_volumes",label="Inplace volumes",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.InplaceVolumes(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'volfiles': {'geogrid': 'geogrid--oil.csv', 'simgrid': 'simgrid--oil.csv'}}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="simulation_time_series",label="Simulation time series",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.ReservoirSimulationTimeSeries(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'obsfile': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'options': {'vector1': 'WOPR:OP_1', 'visualization': 'statistics'}}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="parameter_distribution",label="Parameter distribution",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.ParameterDistribution(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="correlation_between_input_parameters_and_responses",label="Correlation between input parameters and responses",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  dcc.Markdown(r"""# Correlation between input parameters and inplace volumes"""),
-                  standard_plugins.ParameterResponseCorrelation(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'response_file': 'share/results/volumes/geogrid--oil.csv', 'response_filters': {'ZONE': 'multi', 'REGION': 'multi'}}).plugin_layout(contact_person=None),
-                  dcc.Markdown(r"""# Correlation between input parameters and time series"""),
-                  standard_plugins.ParameterResponseCorrelation(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'response_file': 'share/results/tables/unsmry--monthly.csv', 'response_filters': {'DATE': 'single'}}).plugin_layout(contact_person=None),
-                  dcc.Markdown(r"""# Pairwise correlation between all input parameters"""),
-                  standard_plugins.ParameterCorrelation(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="history_match",label="History match",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.HistoryMatch(app=app, **{'observation_file': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="well_cross-section_fmu",label="Well cross-section (FMU)",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.WellCrossSectionFMU(app=app, **{'ensembles': ['iter-0', 'iter-3'], 'wellfolder': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/wells'), 'surfacefiles': ['topupperreek--ds_extracted_horizons.gri', 'topmidreek--ds_extracted_horizons.gri', 'toplowerreek--ds_extracted_horizons.gri', 'baselowerreek--ds_extracted_horizons.gri'], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek'], 'zonelog': 'Zonelog', 'zmin': 1500.0, 'zmax': 1700.0, 'marginal_logs': ['Poro', 'Perm'], 'nextend': 20}).plugin_layout(contact_person=None)
-                  ],
-            ),
-            dcc.Tab(id="last_page",label="How was this made?",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  standard_plugins.Markdown(**{'markdown_file': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/how_was_this_made.md')}).plugin_layout(contact_person=None),
-                  standard_plugins.SyntaxHighlighter(**{'filename': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/full_demo.yaml'), 'dark_theme': True}).plugin_layout(contact_person=None)
-                  ],
-            )],
+                    className="styledLogo", children=[
+                        standard_plugins.BannerImage(**{'image': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/reek_image.jpg'),
+                                                        'title': 'Reek FMU Webviz example'}).plugin_layout(contact_person=None),
+                        standard_plugins.Markdown(**{'markdown_file': PosixPath(
+                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/front_page.md')}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="sensitivity_study_inplace", label="Sensitivity study (inplace)",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.InplaceVolumesOneByOne(app=app, **{'ensembles': ['sens_run'], 'volfiles': {
+                            'geogrid': 'geogrid--oil.csv', 'simgrid': 'simgrid--oil.csv'}}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="sensitivity_study_time_series", label="Sensitivity study (time series)",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.ReservoirSimulationTimeSeriesOneByOne(
+                            app=app, **{'ensembles': ['sens_run'], 'initial_vector': 'FOPT'}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="inplace_volumes", label="Inplace volumes",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.InplaceVolumes(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'volfiles': {
+                            'geogrid': 'geogrid--oil.csv', 'simgrid': 'simgrid--oil.csv'}}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="simulation_time_series", label="Simulation time series",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.ReservoirSimulationTimeSeries(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'obsfile': PosixPath(
+                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'options': {'vector1': 'WOPR:OP_1', 'visualization': 'statistics'}}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="parameter_distribution", label="Parameter distribution",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.ParameterDistribution(
+                            app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="correlation_between_input_parameters_and_responses", label="Correlation between input parameters and responses",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        dcc.Markdown(
+                            r"""# Correlation between input parameters and inplace volumes"""),
+                        standard_plugins.ParameterResponseCorrelation(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'response_file': 'share/results/volumes/geogrid--oil.csv', 'response_filters': {
+                            'ZONE': 'multi', 'REGION': 'multi'}}).plugin_layout(contact_person=None),
+                        dcc.Markdown(
+                            r"""# Correlation between input parameters and time series"""),
+                        standard_plugins.ParameterResponseCorrelation(
+                            app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'response_file': 'share/results/tables/unsmry--monthly.csv', 'response_filters': {'DATE': 'single'}}).plugin_layout(contact_person=None),
+                        dcc.Markdown(
+                            r"""# Pairwise correlation between all input parameters"""),
+                        standard_plugins.ParameterCorrelation(
+                            app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="history_match", label="History match",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.HistoryMatch(app=app, **{'observation_file': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'ensembles': [
+                            'iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="well_cross-section_fmu", label="Well cross-section (FMU)",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.WellCrossSectionFMU(app=app, **{'ensembles': ['iter-0', 'iter-3'], 'wellfolder': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/wells'), 'surfacefiles': ['topupperreek--ds_extracted_horizons.gri', 'topmidreek--ds_extracted_horizons.gri',
+                                                                                                                                                                                                                                                   'toplowerreek--ds_extracted_horizons.gri', 'baselowerreek--ds_extracted_horizons.gri'], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek'], 'zonelog': 'Zonelog', 'zmin': 1500.0, 'zmax': 1700.0, 'marginal_logs': ['Poro', 'Perm'], 'nextend': 20}).plugin_layout(contact_person=None)
+                    ],
+                    ),
+            dcc.Tab(id="last_page", label="How was this made?",
+                    selected_className="selectedButton",
+                    className="styledButton", children=[
+                        standard_plugins.Markdown(**{'markdown_file': PosixPath(
+                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/how_was_this_made.md')}).plugin_layout(contact_person=None),
+                        standard_plugins.SyntaxHighlighter(**{'filename': PosixPath(
+                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/full_demo.yaml'), 'dark_theme': True}).plugin_layout(contact_person=None)
+                    ],
+                    )],
     )
 
 if __name__ == "__main__":
@@ -160,5 +180,5 @@ if __name__ == "__main__":
         ssl_context=webviz_config.LocalhostCertificate().ssl_context,
         debug=False,
         use_reloader=False,
-      
+
     )
