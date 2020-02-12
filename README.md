@@ -1,4 +1,4 @@
-This webviz instance has been automatically created from configuration file.
+This webviz instance has been automatically created from configuration file..
 
 You can run it locally by running:
 
