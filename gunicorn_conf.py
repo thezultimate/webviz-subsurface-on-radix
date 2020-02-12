@@ -12,7 +12,7 @@ max_requests = 20
 worker_tmp_dir = '/dev/shm'
 timeout = 100000
 
-# preload_app = True
+preload_app = True
 
 bind = '0.0.0.0:5000'
 keepalive = 120
