@@ -1,7 +1,7 @@
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
-  name: webwiz-on-radix
+  name: webwiz-subsurface-on-radix
 spec:
   environments:
     - name: dev
