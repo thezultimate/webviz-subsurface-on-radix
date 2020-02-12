@@ -142,13 +142,6 @@ else:
                             'iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
                     ],
                     ),
-            dcc.Tab(id="well_cross-section_fmu", label="Well cross-section (FMU)",
-                    selected_className="selectedButton",
-                    className="styledButton", children=[
-                        standard_plugins.WellCrossSectionFMU(app=app, **{'ensembles': ['iter-0', 'iter-3'], 'wellfolder': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/wells'), 'surfacefiles': ['topupperreek--ds_extracted_horizons.gri', 'topmidreek--ds_extracted_horizons.gri',
-                                                                                                                                                                                                                                                   'toplowerreek--ds_extracted_horizons.gri', 'baselowerreek--ds_extracted_horizons.gri'], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek'], 'zonelog': 'Zonelog', 'zmin': 1500.0, 'zmax': 1700.0, 'marginal_logs': ['Poro', 'Perm'], 'nextend': 20}).plugin_layout(contact_person=None)
-                    ],
-                    ),
             dcc.Tab(id="last_page", label="How was this made?",
                     selected_className="selectedButton",
                     className="styledButton", children=[
