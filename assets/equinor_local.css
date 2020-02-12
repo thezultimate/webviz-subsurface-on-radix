@@ -15,40 +15,35 @@
 - Spacing
 - Utilities
 - Clearing
-- Media Queries
 */
 h1, h2, h3, h4, h5, h6, p, a, div, button {
-  font-family: helvetica;
+  font-family: Equinor;
 }
 
 #logo {
   height: 100px;
   width: 200px;
-  margin: 20px 0px;
   background-size: contain;
-  background-image: url("default_logo.svg");
+  background-image: url("https://eds-static.equinor.com/logo/equinor-logo-primary.svg#red");
   background-repeat: no-repeat;
 }
 
-
 /* Style Variables
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-/* csslint ignore:start */
 :root {
-  --menuLinkFont: helvetica;
+  --menuLinkFont: Equinor;
   --menuLogoHeight: 75px;
   --menuBackground: #ffffff;
-  --menuLinkBackgroundHover: #E5E5E5;
-  --menuLinkBackgroundSelected: #14213D;
-  --menuLinkColor: #000000;
-  --menuLinkColorSelected: #FFFFFF;
+  --menuLinkBackgroundHover: #E2E5E7;
+  --menuLinkBackgroundSelected: #EB0036;
+  --menuLinkColor: #66737e;
+  --menuLinkColorSelected: #ffffff;
   --menuLinkFontStyle: normal;
   --menuLinkFontWeight: 500;
-  --menuLinkHoverColor: #1D3557;
-  --bannerFontFamily: helvetica;
+  --menuLinkHoverColor: #243746;
+  --bannerFontFamily: Equinor;
   --bannerFontWeight: 700;
 }
-/* csslint ignore:end */
 
 /* Plotly.js
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -516,17 +511,3 @@ hr {
   display: table;
   clear: both;
 }
-
-/* Media Queries
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-/*
-Note: The best way to structure the use of media queries is to create the queries
-near the relevant code. For example, if you wanted to change the styles for buttons
-on small devices, paste the mobile query code up in the buttons section and style it
-there.
-*/
-/* Larger than mobile */
-/* Larger than phablet (also point when grid becomes active) */
-/* Larger than tablet */
-/* Larger than desktop */
-/* Larger than Desktop HD */

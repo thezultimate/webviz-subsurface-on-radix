@@ -30,7 +30,7 @@ import webviz_config.plugins as standard_plugins
 logging.getLogger("werkzeug").setLevel(logging.WARNING)
 logging.getLogger().setLevel(logging.WARNING)
 
-theme = webviz_config.WebvizConfigTheme("default")
+theme = webviz_config.WebvizConfigTheme("equinor")
 theme.from_json((Path(__file__).resolve().parent /
                  "theme_settings.json").read_text())
 
