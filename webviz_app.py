@@ -37,7 +37,7 @@ app = dash.Dash(__name__, external_stylesheets=theme.external_stylesheets)
 server = app.server
 
 app.title = "FMU (Fast Model Update) Webviz Example"
-app.config.suppress_callback_exceptions = True
+app.config.suppress_callback_exceptions = False
 
 app.webviz_settings = {
     "shared_settings": webviz_config.SHARED_SETTINGS_SUBSCRIPTIONS.transformed_settings(
