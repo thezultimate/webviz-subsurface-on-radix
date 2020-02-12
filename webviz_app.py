@@ -102,13 +102,6 @@ else:
                   standard_plugins.ReservoirSimulationTimeSeries(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'obsfile': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'options': {'vector1': 'WOPR:OP_1', 'visualization': 'statistics'}}).plugin_layout(contact_person=None)
                   ],
             ),
-            dcc.Tab(id="reservoir_simulation_map",label="Reservoir simulation map",
-                selected_className="selectedButton",
-                className="styledButton",children=[
-                  dcc.Markdown(r"""In this example, the horizontal permeability is shown together with oil fluid flow for a given date during simulation."""),
-                  standard_plugins.SubsurfaceMap(app=app, **{'ensemble': 'iter-0', 'map_value': 'PERMX', 'flow_value': 'FLROIL', 'time_step': 2}).plugin_layout(contact_person=None)
-                  ],
-            ),
             dcc.Tab(id="parameter_distribution",label="Parameter distribution",
                 selected_className="selectedButton",
                 className="styledButton",children=[
