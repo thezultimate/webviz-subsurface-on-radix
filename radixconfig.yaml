@@ -60,6 +60,12 @@ spec:
         - name: redis
           port: 6379
 
+    - name: cache
+      image: redis:5-alpine
+      ports:
+        - name: redis
+          port: 6379
+
   dnsAppAlias:
     environment: dev
     component: auth
