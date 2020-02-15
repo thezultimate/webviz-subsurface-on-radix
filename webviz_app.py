@@ -48,7 +48,7 @@ app.webviz_settings = {
     "theme": theme,
 }
 
-CACHE.TIMEOUT = 300
+CACHE.CACHE_DEFAULT_TIMEOUT = 300
 CACHE.init_app(server)
 
 Talisman(server, content_security_policy=theme.csp,
