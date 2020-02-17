@@ -17,6 +17,7 @@ import dash_html_components as html
 from flask_talisman import Talisman
 import webviz_config
 from webviz_config.themes import installed_themes
+from webviz_config.common_cache import CACHE
 from webviz_config.webviz_store import WEBVIZ_STORAGE
 from webviz_config.webviz_assets import WEBVIZ_ASSETS
 
