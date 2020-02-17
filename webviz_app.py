@@ -48,8 +48,11 @@ app.webviz_settings = {
     "theme": theme,
 }
 
-CACHE = flask_caching.Cache(config={
-                            "CACHE_TYPE": "filesystem", "CACHE_DEFAULT_TIMEOUT": "600", "CACHE_DIR": "/home/appuser/dash_app/webviz_storage"})
+# CACHE = flask_caching.Cache(config={
+#                             "CACHE_TYPE": "filesystem", "CACHE_DEFAULT_TIMEOUT": "600", "CACHE_DIR": "/home/appuser/dash_app/webviz_storage"})
+
+CACHE = flask_caching.Cache(config={"CACHE_TYPE": "simple"})
+CACHE.TIMEOUT = 3600
 CACHE.init_app(server)
 
 Talisman(server, content_security_policy=theme.csp,
