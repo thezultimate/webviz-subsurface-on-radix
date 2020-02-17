@@ -48,8 +48,9 @@ app.webviz_settings = {
     "theme": theme,
 }
 
-CACHE.init_app(server, config={'CACHE_TYPE': 'filesystem', 'CACHE_DEFAULT_TIMEOUT': '600',
-                               'CACHE_DIR': '/home/appuser/dash_app/webviz_storage'})
+CACHE.init_app(server)
+# CACHE.init_app(server, config={'CACHE_TYPE': 'filesystem', 'CACHE_DEFAULT_TIMEOUT': '600',
+#                                'CACHE_DIR': '/home/appuser/dash_app/webviz_storage'})
 
 Talisman(server, content_security_policy=theme.csp,
          feature_policy=theme.feature_policy)
