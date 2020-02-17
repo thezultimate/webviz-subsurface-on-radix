@@ -51,7 +51,8 @@ app.webviz_settings = {
 
 CACHE_CONFIG = {
     'CACHE_TYPE': 'filesystem',
-    'CACHE_DEFAULT_TIMEOUT': '600'
+    'CACHE_DEFAULT_TIMEOUT': '600',
+    'CACHE_DIR': '/dev/shm'
 }
 
 cache = Cache()
