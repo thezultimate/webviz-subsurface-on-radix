@@ -9,6 +9,7 @@ import logging.config
 import threading
 import datetime
 import os.path as path
+import os
 from pathlib import Path, PosixPath
 
 import dash
@@ -22,6 +23,7 @@ from webviz_config.webviz_store import WEBVIZ_STORAGE
 from webviz_config.webviz_assets import WEBVIZ_ASSETS
 
 import webviz_config.plugins as standard_plugins
+from flask_caching import Cache
 
 # We do not want to show INFO regarding werkzeug routing as that is too verbose,
 # however we want other log handlers (typically coming from webviz plugin dependencies)
@@ -48,8 +50,15 @@ app.webviz_settings = {
     "theme": theme,
 }
 
-CACHE.CACHE_DEFAULT_TIMEOUT = 300
-CACHE.init_app(server)
+CACHE_CONFIG = {
+    # try 'filesystem' if you don't want to setup redis
+    'CACHE_TYPE': 'redis',
+    'CACHE_REDIS_URL': os.environ.get('REDIS_URL', 'redis://cache:6379'),
+    'CACHE_DEFAULT_TIMEOUT': '600'
+}
+
+cache = Cache()
+cache.init_app(app.server, config=CACHE_CONFIG)
 
 Talisman(server, content_security_policy=theme.csp,
          feature_policy=theme.feature_policy)
