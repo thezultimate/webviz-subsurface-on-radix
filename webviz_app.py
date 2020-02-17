@@ -9,7 +9,6 @@ import logging.config
 import threading
 import datetime
 import os.path as path
-import os
 from pathlib import Path, PosixPath
 
 import dash
@@ -51,9 +50,7 @@ app.webviz_settings = {
 }
 
 CACHE_CONFIG = {
-    # try 'filesystem' if you don't want to setup redis
-    'CACHE_TYPE': 'redis',
-    'CACHE_REDIS_URL': os.environ.get('REDIS_URL', 'redis://cache:6379'),
+    'CACHE_TYPE': 'filesystem',
     'CACHE_DEFAULT_TIMEOUT': '600'
 }
 
