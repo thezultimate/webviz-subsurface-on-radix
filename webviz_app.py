@@ -56,7 +56,7 @@ CACHE_CONFIG = {
 }
 
 cache = Cache()
-cache.init_app(app.server, config=CACHE_CONFIG)
+cache.init_app(server, config=CACHE_CONFIG)
 
 Talisman(server, content_security_policy=theme.csp,
          feature_policy=theme.feature_policy)
