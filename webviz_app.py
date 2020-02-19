@@ -42,7 +42,7 @@ app.config.suppress_callback_exceptions = True
 app.webviz_settings = {
     "shared_settings": webviz_config.SHARED_SETTINGS_SUBSCRIPTIONS.transformed_settings(
         {'scratch_ensembles': {'sens_run': '../reek_fullmatrix/realization-*/iter-0', 'iter-0': '../reek_history_match/realization-*/iter-0', 'iter-1': '../reek_history_match/realization-*/iter-1',
-                               'iter-2': '../reek_history_match/realization-*/iter-2', 'iter-3': '../reek_history_match/realization-*/iter-3'}}, PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples'), True
+                               'iter-2': '../reek_history_match/realization-*/iter-2', 'iter-3': '../reek_history_match/realization-*/iter-3'}}, PosixPath('/home/appuser/dash_app/webviz_storage/webviz_examples'), True
     ),
     "portable": True,
     "theme": theme,
@@ -78,10 +78,10 @@ else:
 
             dcc.Tab(id="logo",
                     className="styledLogo", children=[
-                        standard_plugins.BannerImage(**{'image': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/reek_image.jpg'),
+                        standard_plugins.BannerImage(**{'image': PosixPath('/home/appuser/dash_app/webviz_storage/webviz_examples/content/reek_image.jpg'),
                                                         'title': 'Reek FMU Webviz example'}).plugin_layout(contact_person=None),
                         standard_plugins.Markdown(**{'markdown_file': PosixPath(
-                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/front_page.md')}).plugin_layout(contact_person=None)
+                            '/home/appuser/dash_app/webviz_storage/webviz_examples/content/front_page.md')}).plugin_layout(contact_person=None)
                     ],
                     ),
             dcc.Tab(id="sensitivity_study_inplace", label="Sensitivity study (inplace)",
@@ -109,7 +109,7 @@ else:
                     selected_className="selectedButton",
                     className="styledButton", children=[
                         standard_plugins.ReservoirSimulationTimeSeries(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3'], 'obsfile': PosixPath(
-                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'options': {'vector1': 'WOPR:OP_1', 'visualization': 'statistics'}}).plugin_layout(contact_person=None)
+                            '/home/appuser/dash_app/webviz_storage/reek_history_match/share/observations/observations.yml'), 'options': {'vector1': 'WOPR:OP_1', 'visualization': 'statistics'}}).plugin_layout(contact_person=None)
                     ],
                     ),
             dcc.Tab(id="reservoir_simulation_map", label="Reservoir simulation map",
@@ -148,45 +148,45 @@ else:
             dcc.Tab(id="history_match", label="History match",
                     selected_className="selectedButton",
                     className="styledButton", children=[
-                        standard_plugins.HistoryMatch(app=app, **{'observation_file': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'ensembles': [
+                        standard_plugins.HistoryMatch(app=app, **{'observation_file': PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/share/observations/observations.yml'), 'ensembles': [
                             'iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
                     ],
                     ),
             dcc.Tab(id="seg-y_viewer", label="SEG-Y viewer",
                     selected_className="selectedButton",
                     className="styledButton", children=[
-                        standard_plugins.SegyViewer(app=app, **{'segyfiles': [PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/seismic/syntseis_20000101_seismic_depth_stack.segy'), PosixPath(
-                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/seismic/syntseis_20030101_seismic_depth_stack.segy')]}).plugin_layout(contact_person=None)
+                        standard_plugins.SegyViewer(app=app, **{'segyfiles': [PosixPath('/home/appuser/dash_app/webviz_storage/observed_data/seismic/syntseis_20000101_seismic_depth_stack.segy'), PosixPath(
+                            '/home/appuser/dash_app/webviz_storage/observed_data/seismic/syntseis_20030101_seismic_depth_stack.segy')]}).plugin_layout(contact_person=None)
                     ],
                     ),
             dcc.Tab(id="surface_with_seismic_cross-section", label="Surface with seismic cross-section",
                     selected_className="selectedButton",
                     className="styledButton", children=[
-                        standard_plugins.SurfaceWithSeismicCrossSection(app=app, **{'segyfiles': [PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/seismic/syntseis_20000101_seismic_depth_stack.segy'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/seismic/syntseis_20030101_seismic_depth_stack.segy')], 'surfacefiles': [PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_fullmatrix/realization-0/iter-0/share/results/maps/topupperreek--ds_extracted_horizons.gri'), PosixPath(
-                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_fullmatrix/realization-0/iter-0/share/results/maps/topmidreek--ds_extracted_horizons.gri'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_fullmatrix/realization-0/iter-0/share/results/maps/toplowerreek--ds_extracted_horizons.gri'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_fullmatrix/realization-0/iter-0/share/results/maps/baselowerreek--ds_extracted_horizons.gri')], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek']}).plugin_layout(contact_person=None)
+                        standard_plugins.SurfaceWithSeismicCrossSection(app=app, **{'segyfiles': [PosixPath('/home/appuser/dash_app/webviz_storage/observed_data/seismic/syntseis_20000101_seismic_depth_stack.segy'), PosixPath('/home/appuser/dash_app/webviz_storage/observed_data/seismic/syntseis_20030101_seismic_depth_stack.segy')], 'surfacefiles': [PosixPath('/home/appuser/dash_app/webviz_storage/reek_fullmatrix/realization-0/iter-0/share/results/maps/topupperreek--ds_extracted_horizons.gri'), PosixPath(
+                            '/home/appuser/dash_app/webviz_storage/reek_fullmatrix/realization-0/iter-0/share/results/maps/topmidreek--ds_extracted_horizons.gri'), PosixPath('/home/appuser/dash_app/webviz_storage/reek_fullmatrix/realization-0/iter-0/share/results/maps/toplowerreek--ds_extracted_horizons.gri'), PosixPath('/home/appuser/dash_app/webviz_storage/reek_fullmatrix/realization-0/iter-0/share/results/maps/baselowerreek--ds_extracted_horizons.gri')], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek']}).plugin_layout(contact_person=None)
                     ],
                     ),
             dcc.Tab(id="surface_with_grid_cross-section", label="Surface with grid cross-section",
                     selected_className="selectedButton",
                     className="styledButton", children=[
-                        standard_plugins.SurfaceWithGridCrossSection(app=app, **{'gridfile': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/grids/geogrid.roff'), 'gridparameterfiles': [PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/grids/geogrid--poro.roff'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/grids/geogrid--perm.roff'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/grids/geogrid--facies.roff')], 'surfacefiles': [PosixPath(
-                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/maps/topupperreek--ds_extracted_horizons.gri'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/maps/topmidreek--ds_extracted_horizons.gri'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/maps/toplowerreek--ds_extracted_horizons.gri'), PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/realization-0/iter-0/share/results/maps/baselowerreek--ds_extracted_horizons.gri')], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek']}).plugin_layout(contact_person=None)
+                        standard_plugins.SurfaceWithGridCrossSection(app=app, **{'gridfile': PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/grids/geogrid.roff'), 'gridparameterfiles': [PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/grids/geogrid--poro.roff'), PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/grids/geogrid--perm.roff'), PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/grids/geogrid--facies.roff')], 'surfacefiles': [PosixPath(
+                            '/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/maps/topupperreek--ds_extracted_horizons.gri'), PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/maps/topmidreek--ds_extracted_horizons.gri'), PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/maps/toplowerreek--ds_extracted_horizons.gri'), PosixPath('/home/appuser/dash_app/webviz_storage/reek_history_match/realization-0/iter-0/share/results/maps/baselowerreek--ds_extracted_horizons.gri')], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek']}).plugin_layout(contact_person=None)
                     ],
                     ),
             dcc.Tab(id="well_cross-section_fmu", label="Well cross-section (FMU)",
                     selected_className="selectedButton",
                     className="styledButton", children=[
-                        standard_plugins.WellCrossSectionFMU(app=app, **{'ensembles': ['iter-0', 'iter-3'], 'wellfolder': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/observed_data/wells'), 'surfacefiles': ['topupperreek--ds_extracted_horizons.gri', 'topmidreek--ds_extracted_horizons.gri',
-                                                                                                                                                                                                                                                   'toplowerreek--ds_extracted_horizons.gri', 'baselowerreek--ds_extracted_horizons.gri'], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek'], 'zonelog': 'Zonelog', 'zmin': 1500.0, 'zmax': 1700.0, 'marginal_logs': ['Poro', 'Perm'], 'nextend': 20}).plugin_layout(contact_person=None)
+                        standard_plugins.WellCrossSectionFMU(app=app, **{'ensembles': ['iter-0', 'iter-3'], 'wellfolder': PosixPath('/home/appuser/dash_app/webviz_storage/observed_data/wells'), 'surfacefiles': ['topupperreek--ds_extracted_horizons.gri', 'topmidreek--ds_extracted_horizons.gri',
+                                                                                                                                                                                                                   'toplowerreek--ds_extracted_horizons.gri', 'baselowerreek--ds_extracted_horizons.gri'], 'surfacenames': ['Top Upper Reek', 'Top Middle Reek', 'Top Lower Reek', 'Base Lower Reek'], 'zonelog': 'Zonelog', 'zmin': 1500.0, 'zmax': 1700.0, 'marginal_logs': ['Poro', 'Perm'], 'nextend': 20}).plugin_layout(contact_person=None)
                     ],
                     ),
             dcc.Tab(id="last_page", label="How was this made?",
                     selected_className="selectedButton",
                     className="styledButton", children=[
                         standard_plugins.Markdown(**{'markdown_file': PosixPath(
-                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/content/how_was_this_made.md')}).plugin_layout(contact_person=None),
+                            '/home/appuser/dash_app/webviz_storage/webviz_examples/content/how_was_this_made.md')}).plugin_layout(contact_person=None),
                         standard_plugins.SyntaxHighlighter(**{'filename': PosixPath(
-                            '/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/webviz_examples/full_demo.yaml'), 'dark_theme': True}).plugin_layout(contact_person=None)
+                            '/home/appuser/dash_app/webviz_storage/webviz_examples/full_demo.yaml'), 'dark_theme': True}).plugin_layout(contact_person=None)
                     ],
                     )],
     )
