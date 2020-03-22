@@ -23,7 +23,7 @@ spec:
             limits:
               memory: "3G"
           horizontalScaling:
-            minReplicas: 0
+            minReplicas: 1
             maxReplicas: 10
 
     - name: auth
