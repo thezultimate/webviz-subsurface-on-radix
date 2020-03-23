@@ -21,7 +21,7 @@ spec:
         - environment: dev
           resources:
             requests:
-              memory: "50Mi"
+              memory: "500Mi"
               cpu: "1m"
             limits:
               memory: "1G"
