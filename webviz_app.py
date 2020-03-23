@@ -24,12 +24,12 @@ from flask_talisman import Talisman
 import webviz_config
 import webviz_config.certificate
 from webviz_config.themes import installed_themes
-from webviz_config.common_cache import CACHE
 from webviz_config.webviz_store import WebvizStorage, WEBVIZ_STORAGE
 from blob_storage.webviz_blob_store import WEBVIZ_BLOB_STORAGE
 from webviz_config.webviz_assets import WEBVIZ_ASSETS
 
 import webviz_config.plugins as standard_plugins
+import flask_caching
 
 
 # We do not want to show INFO regarding werkzeug routing as that is too verbose,
@@ -55,6 +55,8 @@ app.webviz_settings = {
     "theme": theme,
 }
 
+CACHE = flask_caching.Cache(config={"CACHE_TYPE": "simple"})
+CACHE.TIMEOUT = 60
 CACHE.init_app(server)
 
 Talisman(server, content_security_policy=theme.csp, feature_policy=theme.feature_policy)
