@@ -25,6 +25,8 @@ class WebvizBlobStorage(WebvizStorage):
         
         local_path = "webviz_storage"
         absolute_path = path.join(path.dirname(path.realpath(local_path)), local_path)
+        if not path.exists(absolute_path):
+            os.makedirs(absolute_path)
 
         blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 
