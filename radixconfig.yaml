@@ -21,13 +21,13 @@ spec:
         - environment: dev
           resources:
             requests:
-              memory: "500M"
-              cpu: "2000m"
+              memory: "50Mi"
+              cpu: "1m"
             limits:
-              memory: "3G"
+              memory: "1G"
           horizontalScaling:
             minReplicas: 1
-            maxReplicas: 10
+            maxReplicas: 3
 
     - name: auth
       image: quay.io/pusher/oauth2_proxy:v4.1.0 # see https://pusher.github.io/oauth2_proxy/configuration
