@@ -8,24 +8,6 @@ spec:
       build:
         from: master
   components:
-    - name: main
-      src: "."
-      ports:
-        - name: http
-          port: 5000
-      publicPort: http
-      secrets:
-        - AZURE_STORAGE_CONNECTION_STRING
-        - AZURE_STORAGE_CONTAINER_NAME
-      environmentConfig:
-        - environment: dev
-          resources:
-            requests:
-              memory: "100Mi"
-              cpu: "10m"
-            limits:
-              memory: "2G"
-
     - name: auth
       image: quay.io/pusher/oauth2_proxy:v4.1.0 # see https://pusher.github.io/oauth2_proxy/configuration
       ports:
@@ -59,6 +41,23 @@ spec:
       ports:
         - name: redis
           port: 6379
+
+    - name: main
+      src: "."
+      ports:
+        - name: http
+          port: 5000
+      secrets:
+        - AZURE_STORAGE_CONNECTION_STRING
+        - AZURE_STORAGE_CONTAINER_NAME
+      environmentConfig:
+        - environment: dev
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "10m"
+            limits:
+              memory: "2G"
 
   dnsAppAlias:
     environment: dev
