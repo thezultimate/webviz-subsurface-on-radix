@@ -14,6 +14,9 @@ spec:
         - name: http
           port: 5000
       publicPort: http
+      secrets:
+        - AZURE_STORAGE_CONNECTION_STRING
+        - AZURE_STORAGE_CONTAINER_NAME
       environmentConfig:
         - environment: dev
           resources:
