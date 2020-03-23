@@ -57,7 +57,7 @@ app.webviz_settings = {
 
 CACHE = flask_caching.Cache(config={"CACHE_TYPE": "simple"})
 CACHE.TIMEOUT = 60
-CACHE.init_app(server)
+CACHE.init_app(app)
 
 Talisman(server, content_security_policy=theme.csp, feature_policy=theme.feature_policy)
 
