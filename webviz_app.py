@@ -56,7 +56,7 @@ newCacheConfig = {
     "CACHE_THRESHOLD": 1
 }
 
-CACHE.config = newCacheConfig
+#CACHE.config = newCacheConfig
 CACHE.init_app(server)
 
 Talisman(server, content_security_policy=theme.csp, feature_policy=theme.feature_policy)
