@@ -1,13 +1,32 @@
-This webviz instance has been automatically created from configuration file..
+# First time creation
 
-You can run it locally by running:
+1. `pip install webviz-config`
 
-  cd THISFOLDER
-  python3 ./webviz_app.py
+That will ensure that user can run webviz CLI (command line interface) commands
 
-If you want to upload it to e.g. Azure Container Registry, you can do e.g.
+2. `cd ..`
+3. `git clone --depth 1 https://github.com/equinor/webviz-subsurface-testdata`
 
-  cd THISFOLDER
-  az acr build --registry $ACR_NAME --image $IMAGE_NAME . 
+Cloning the example repo into the root folder
 
-assuming you have set the environment variables $ACR_NAME and $IMAGE_NAME
+4. `cd webviz-subsurface-on-radix`
+
+Navigate back to the repo
+
+5. `rm -rf out && webviz build ../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml --theme equinor --portable ./out`
+
+Generate portable
+
+6. `mv ./out/assets/ ./assets`
+7. `cp ./out/.dockerignore ./.dockerignore`
+8. `cp ./out/theme_settings.json ./theme_settings.json`
+
+Copy general assets out
+
+9.  `cp ./hack/Dockerfile ./Dockerfile`
+
+Copy the modified dockerfile to allow it to run on Radix
+
+9.  `cp ./hack/radixconfig.yaml ./radixconfig.yaml`
+
+Copy the modified dockerfile to allow it to run on Radix

@@ -1,9 +1,8 @@
 .venv/**
 webviz_storage/**
 .vscode/**
-__pycache__/**
+**/__pycache__/**
 .env
 .DS_Store
 docker-compose.override.yaml
 webviz_storage_backup/**
-blob_storage/__pycache__/**
