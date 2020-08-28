@@ -9,9 +9,6 @@ RUN pip install dash_app/. && \
     pip install azure-storage-blob && \
     pip install pandas~=0.24 && \
     pip install webviz-subsurface --upgrade && \
-    pip install webviz-subsurface-components --upgrade && \
-    pip install webviz-core-components --upgrade && \
-    pip install ecl --upgrade && \
     pip install libecl --upgrade
 
 CMD gunicorn \
