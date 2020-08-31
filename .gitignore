@@ -6,3 +6,4 @@ webviz_storage/**
 .DS_Store
 docker-compose.override.yaml
 webviz_storage_backup/**
+docker-compose.yaml
