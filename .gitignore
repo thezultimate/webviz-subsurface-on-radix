@@ -7,3 +7,4 @@ webviz_storage/**
 docker-compose.override.yaml
 webviz_storage_backup/**
 docker-compose.yaml
+generated_app/**
