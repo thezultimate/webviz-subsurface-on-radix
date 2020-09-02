@@ -29,12 +29,7 @@ rm -rf generated_app && webviz build "${WEBVIZ_CONFIG}" --theme equinor --portab
 ### container. In this case we are using the storage account
 ###
 
-STORAGE_ACCOUNT_NAME="webvizonradix"
-STORAGE_ACCOUNT="https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net"
-CONTAINER_NAME="webviz-data"
-
-echo "Copy generated data to storage account"
-az storage blob upload-batch -d "${CONTAINER_NAME}" -s "${SOURCE_FOLDER}" --account-name "${STORAGE_ACCOUNT_NAME}" --account-key "${STORAGE_ACCOUNT_KEY}"
+(STORAGE_ACCOUNT_KEY="${STORAGE_ACCOUNT_KEY}" SOURCE_FOLDER="${SOURCE_FOLDER}" ./hack/upload_to_storage_account.sh)
 
 #######################################################################################
 ### Using the generated assets
