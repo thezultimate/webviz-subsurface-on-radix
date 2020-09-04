@@ -1,14 +1,7 @@
 #!/bin/bash
 
-#######################################################################################
-### The STORAGE_ACCOUNT_KEY is a secret used for accessing the storage account
-### and should never be shared with anyone
-###
-
-if [[ -z "$STORAGE_CONNECTION_STRING" ]]; then
-    echo "Please provide STORAGE_CONNECTION_STRING" >&2
-    exit 1
-fi
+STORAGE_ACCOUNT_NAME="webvizonradix"
+CONTAINER_NAME="webviz-data"
 
 #######################################################################################
 ### Generates the app from webviz yaml config file. This requires access to
@@ -17,8 +10,6 @@ fi
 
 WORKDIR="./generated_app"
 WEBVIZ_STORAGE="webviz_storage"
-SOURCE_FOLDER="${WORKDIR}/${WEBVIZ_STORAGE}"
-DESTINATION_FOLDER="${WEBVIZ_STORAGE}"
 WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
 echo "Generate app"
@@ -30,7 +21,9 @@ rm -rf generated_app && webviz build "${WEBVIZ_CONFIG}" --theme equinor --portab
 ### container. In this case we are using the storage account
 ###
 
-(STORAGE_CONNECTION_STRING="${STORAGE_CONNECTION_STRING}" SOURCE_FOLDER="${SOURCE_FOLDER}" DESTINATION_FOLDER="${DESTINATION_FOLDER}" ./hack/upload_to_storage_account.sh)
+SOURCE_FOLDER="${WORKDIR}/${WEBVIZ_STORAGE}"
+DESTINATION_FOLDER="${WEBVIZ_STORAGE}"
+(STORAGE_ACCOUNT_NAME="${STORAGE_ACCOUNT_NAME}" CONTAINER_NAME="${CONTAINER_NAME}" SOURCE_FOLDER="${SOURCE_FOLDER}" DESTINATION_FOLDER="${DESTINATION_FOLDER}" ./hack/upload_to_storage_account.sh)
 
 #######################################################################################
 ### Using the generated assets
