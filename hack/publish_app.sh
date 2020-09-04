@@ -2,6 +2,7 @@
 
 STORAGE_ACCOUNT_NAME="webvizonradix"
 CONTAINER_NAME="webviz-data"
+WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
 #######################################################################################
 ### Generates the app from webviz yaml config file. This requires access to
@@ -10,10 +11,10 @@ CONTAINER_NAME="webviz-data"
 
 WORKDIR="./generated_app"
 WEBVIZ_STORAGE="webviz_storage"
-WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
 echo "Generate app"
-rm -rf generated_app && webviz build "${WEBVIZ_CONFIG}" --theme equinor --portable "${WORKDIR}"
+rm -rf generated_app &&
+    webviz build "${WEBVIZ_CONFIG}" --theme equinor --portable "${WORKDIR}"
 
 #######################################################################################
 ### Radix needs to be able to load aggregated files. Unless agregated files are small enough to
@@ -23,7 +24,13 @@ rm -rf generated_app && webviz build "${WEBVIZ_CONFIG}" --theme equinor --portab
 
 SOURCE_FOLDER="${WORKDIR}/${WEBVIZ_STORAGE}"
 DESTINATION_FOLDER="${WEBVIZ_STORAGE}"
-(STORAGE_ACCOUNT_NAME="${STORAGE_ACCOUNT_NAME}" CONTAINER_NAME="${CONTAINER_NAME}" SOURCE_FOLDER="${SOURCE_FOLDER}" DESTINATION_FOLDER="${DESTINATION_FOLDER}" ./hack/upload_to_storage_account.sh)
+
+echo "Copy generated data to storage account"
+az storage blob upload-batch \
+    --account-name "${STORAGE_ACCOUNT_NAME}" \
+    -d "${CONTAINER_NAME}" \
+    -s "${SOURCE_FOLDER}" \
+    --auth-mode login --destination-path "${DESTINATION_FOLDER}"
 
 #######################################################################################
 ### Using the generated assets
@@ -57,7 +64,7 @@ rm webviz_app.py-e
 ### Push to github to trigger build
 ###
 
-current_time=$(date "+%Y.%m.%d-%H.%M.%S")
-git add .
-git commit -a -m "Generated code ${current_time}"
-git push
+# current_time=$(date "+%Y.%m.%d-%H.%M.%S")
+# git add .
+# git commit -a -m "Generated code ${current_time}"
+# git push
