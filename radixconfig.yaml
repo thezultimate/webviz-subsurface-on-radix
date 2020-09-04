@@ -51,6 +51,7 @@ spec:
       secrets:
         - AZURE_STORAGE_CONNECTION_STRING
         - AZURE_STORAGE_CONTAINER_NAME
+        - AZURE_STORAGE_CONTAINER_PATH
       environmentConfig:
         - environment: dev
           resources:

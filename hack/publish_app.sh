@@ -5,8 +5,8 @@
 ### and should never be shared with anyone
 ###
 
-if [[ -z "$STORAGE_ACCOUNT_KEY" ]]; then
-    echo "Please provide STORAGE_ACCOUNT_KEY" >&2
+if [[ -z "$STORAGE_CONNECTION_STRING" ]]; then
+    echo "Please provide STORAGE_CONNECTION_STRING" >&2
     exit 1
 fi
 
@@ -18,6 +18,7 @@ fi
 WORKDIR="./generated_app"
 WEBVIZ_STORAGE="webviz_storage"
 SOURCE_FOLDER="${WORKDIR}/${WEBVIZ_STORAGE}"
+DESTINATION_FOLDER="${WEBVIZ_STORAGE}"
 WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
 echo "Generate app"
@@ -29,7 +30,7 @@ rm -rf generated_app && webviz build "${WEBVIZ_CONFIG}" --theme equinor --portab
 ### container. In this case we are using the storage account
 ###
 
-(STORAGE_ACCOUNT_KEY="${STORAGE_ACCOUNT_KEY}" SOURCE_FOLDER="${SOURCE_FOLDER}" ./hack/upload_to_storage_account.sh)
+(STORAGE_CONNECTION_STRING="${STORAGE_CONNECTION_STRING}" SOURCE_FOLDER="${SOURCE_FOLDER}" DESTINATION_FOLDER="${DESTINATION_FOLDER}" ./hack/upload_to_storage_account.sh)
 
 #######################################################################################
 ### Using the generated assets

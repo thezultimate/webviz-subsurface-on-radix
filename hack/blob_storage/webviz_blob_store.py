@@ -22,6 +22,7 @@ class WebvizBlobStorage(WebvizStorage):
         
         connect_str = os.getenv('AZURE_STORAGE_CONNECTION_STRING')
         container_name = os.getenv('AZURE_STORAGE_CONTAINER_NAME')
+        container_path = os.getenv('AZURE_STORAGE_CONTAINER_PATH')
         
         local_path = "webviz_storage"
         absolute_path = path.join(path.dirname(path.realpath(local_path)), local_path)
@@ -47,6 +48,8 @@ class WebvizBlobStorage(WebvizStorage):
             filename = f"{func.__module__}-{func.__name__}-{hashed_args}.parquet"
 
         download_file_path = os.path.join(absolute_path, filename)
+        
+        print("\nDownloading blob from \n\t" + filename)
         print("\nDownloading blob to \n\t" + download_file_path)
 
         blob_client = blob_service_client.get_blob_client(container_name, filename)
