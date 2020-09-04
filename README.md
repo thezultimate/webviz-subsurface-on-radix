@@ -50,3 +50,7 @@ For the main container:
 - `AZURE_STORAGE_CONNECTION_STRING` - Go to the storage account -> Setting -> Access Keys -> Connection String. Copy value
 - `AZURE_STORAGE_CONTAINER_NAME` - The name of the container you created to hold the `webviz_storage` data
 - `AZURE_STORAGE_CONTAINER_PATH` - The path inside the container
+
+# CI/CD (Continous Integration/Continous Deployment) on Radix
+
+![Publish Webviz to Radix](./images/Publish_Webviz_App.gif)
