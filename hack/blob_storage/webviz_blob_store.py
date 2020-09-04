@@ -39,13 +39,13 @@ class WebvizBlobStorage(WebvizStorage):
         return_type = inspect.getfullargspec(func).annotations["return"]
 
         hashed_args = hashlib.sha256(repr(WebvizStorage._dict_to_tuples(kwargs)).encode()).hexdigest()
-        filename = f"{func.__module__}-{func.__name__}-{hashed_args}"
+        filename = f"{container_path}{func.__module__}-{func.__name__}-{hashed_args}"
 
         if return_type == pathlib.Path:
             output = func(**kwargs)
-            filename = f"{func.__module__}-{func.__name__}-{hashed_args}{output.suffix}"
+            filename = f"{container_path}{func.__module__}-{func.__name__}-{hashed_args}{output.suffix}"
         if return_type == pd.DataFrame:
-            filename = f"{func.__module__}-{func.__name__}-{hashed_args}.parquet"
+            filename = f"{container_path}{func.__module__}-{func.__name__}-{hashed_args}.parquet"
 
         download_file_path = os.path.join(absolute_path, filename)
         

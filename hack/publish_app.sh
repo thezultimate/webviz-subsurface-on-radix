@@ -64,7 +64,7 @@ rm webviz_app.py-e
 ### Push to github to trigger build
 ###
 
-# current_time=$(date "+%Y.%m.%d-%H.%M.%S")
-# git add .
-# git commit -a -m "Generated code ${current_time}"
-# git push
+current_time=$(date "+%Y.%m.%d-%H.%M.%S")
+git add .
+git commit -a -m "Generated code ${current_time}"
+git push
