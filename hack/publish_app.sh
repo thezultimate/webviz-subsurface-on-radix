@@ -5,6 +5,23 @@ CONTAINER_NAME="webviz-data"
 WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
 #######################################################################################
+### Check for prerequisites binaries
+###
+
+echo ""
+printf "Check for neccesary executables... "
+hash az 2>/dev/null || {
+    echo -e "\nError: Azure-CLI not found in PATH. Exiting..."
+    exit 1
+}
+hash webviz 2>/dev/null || {
+    echo -e "\nError: webviz not found in PATH. Exiting..."
+    exit 1
+}
+printf "All is good."
+echo ""
+
+#######################################################################################
 ### Generates the app from webviz yaml config file. This requires access to
 ### raw resource files used by the reports
 ###
