@@ -11,6 +11,7 @@ On Azure Portal (You will need to [activate](https://portal.azure.com/#blade/Mic
 
 - Create a storage account underneath your Omnia subscription or for your [Omnia Application](https://docs.omnia.equinor.com/)
 - Create a blob container under your storage account
+- You will need to have 'Storage Blob Data Contributor' role in order to be able to upload to storage account
 
 # First time creation
 
@@ -31,6 +32,8 @@ Cloning the example repo into your folder
 Navigate to the repo
 
 5. `./hack/publish_app.sh`
+
+Runs the steps for publishing the report to Radix. It requires that webviz and Azure CLI has been installed
 
 # Setting up on Radix
 

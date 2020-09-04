@@ -141,7 +141,7 @@ else:
                   standard_plugins.ParameterCorrelation(app=app, **{'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
                   ],
             ),
-            dcc.Tab(id="history_match",label="History match",
+            dcc.Tab(id="history_match_iknu_test",label="History match (IKNU Test)",
                 selected_className="selectedButton",
                 className="styledButton",children=[
                   standard_plugins.HistoryMatch(app=app, **{'observation_file': PosixPath('/Users/ingeknudsen/Documents/equinor/repos/webviz-subsurface-testdata/reek_history_match/share/observations/observations.yml'), 'ensembles': ['iter-0', 'iter-1', 'iter-2', 'iter-3']}).plugin_layout(contact_person=None)
