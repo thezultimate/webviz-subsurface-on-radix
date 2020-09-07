@@ -4,18 +4,6 @@ STORAGE_ACCOUNT_NAME="webvizonradix"
 CONTAINER_NAME="webviz-data"
 WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
-az login
-
-if [[ $USER_PROMPT == true ]]; then
-    read -p "Continue? (Y/n) " -n 1 -r
-    if [[ "$REPLY" =~ (N|n) ]]; then
-        echo ""
-        echo "Quitting."
-        exit 0
-    fi
-    echo ""
-fi
-
 #######################################################################################
 ### Check for prerequisites binaries
 ###
@@ -55,6 +43,7 @@ SOURCE_FOLDER="${WORKDIR}/${WEBVIZ_STORAGE}"
 DESTINATION_FOLDER="${WEBVIZ_STORAGE}"
 
 echo "Copy generated data to storage account"
+az login
 az storage blob upload-batch \
     --account-name "${STORAGE_ACCOUNT_NAME}" \
     -d "${CONTAINER_NAME}" \
