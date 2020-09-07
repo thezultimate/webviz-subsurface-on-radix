@@ -54,6 +54,7 @@ CACHE.init_app(server)
 Talisman(server, content_security_policy=theme.csp, feature_policy=theme.feature_policy)
 
 WEBVIZ_STORAGE.get_stored_data = WEBVIZ_BLOB_STORAGE.get_stored_data
+WEBVIZ_STORAGE.get_stored_data = WEBVIZ_BLOB_STORAGE.get_stored_data
 WEBVIZ_STORAGE.use_storage = True
 WEBVIZ_STORAGE.storage_folder = path.join(
     path.dirname(path.realpath(__file__)), "webviz_storage"

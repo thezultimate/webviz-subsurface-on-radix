@@ -4,6 +4,18 @@ STORAGE_ACCOUNT_NAME="webvizonradix"
 CONTAINER_NAME="webviz-data"
 WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
+az login
+
+if [[ $USER_PROMPT == true ]]; then
+    read -p "Continue? (Y/n) " -n 1 -r
+    if [[ "$REPLY" =~ (N|n) ]]; then
+        echo ""
+        echo "Quitting."
+        exit 0
+    fi
+    echo ""
+fi
+
 #######################################################################################
 ### Check for prerequisites binaries
 ###
