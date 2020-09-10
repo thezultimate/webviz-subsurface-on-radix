@@ -10,12 +10,16 @@ WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.ym
 
 echo ""
 printf "Check for neccesary executables... "
-hash az 2>/dev/null || {
+hash azcopy 2>/dev/null || {
     echo -e "\nError: Azure-CLI not found in PATH. Exiting..."
     exit 1
 }
 hash webviz 2>/dev/null || {
     echo -e "\nError: webviz not found in PATH. Exiting..."
+    exit 1
+}
+hash git 2>/dev/null || {
+    echo -e "\nError: git not found in PATH. Exiting..."
     exit 1
 }
 printf "All is good."
@@ -43,12 +47,8 @@ SOURCE_FOLDER="${WORKDIR}/${WEBVIZ_STORAGE}"
 DESTINATION_FOLDER="${WEBVIZ_STORAGE}"
 
 echo "Copy generated data to storage account"
-az login
-az storage blob upload-batch \
-    --account-name "${STORAGE_ACCOUNT_NAME}" \
-    -d "${CONTAINER_NAME}" \
-    -s "${SOURCE_FOLDER}" \
-    --auth-mode login --destination-path "${DESTINATION_FOLDER}"
+azcopy login
+azcopy copy "${SOURCE_FOLDER}" "https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${CONTAINER_NAME}/${DESTINATION_FOLDER}/" --recursive
 
 #######################################################################################
 ### Using the generated assets
@@ -75,8 +75,6 @@ WEBVIZ_STORAGE.use_storage = True"
 
 sed -i -e "s/${OLD_IMPORT}/${NEW_IMPORT}/g" webviz_app.py
 sed -i -e "s/${OLD_USE_STORAGE}/${NEW_USE_STORAGE}/g" webviz_app.py
-
-rm webviz_app.py-e
 
 #######################################################################################
 ### Push to github to trigger build

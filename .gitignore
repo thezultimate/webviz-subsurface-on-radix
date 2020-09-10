@@ -8,3 +8,4 @@ docker-compose.override.yaml
 webviz_storage_backup/**
 docker-compose.yaml
 generated_app/**
+**/webviz_app.py-e
