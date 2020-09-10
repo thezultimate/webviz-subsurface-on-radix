@@ -2,7 +2,6 @@ FROM webviz/base_image:latest
 
 COPY --chown=appuser . dash_app
 RUN mv ./dash_app/hack/blob_storage/ ./dash_app/blob_storage && \
-    mv ./dash_app/hack/gunicorn_conf.py ./gunicorn_conf.py && \
     mv ./dash_app/hack/setup.py ./dash_app/setup.py
 
 RUN pip install dash_app/. && \
@@ -12,5 +11,14 @@ RUN pip install dash_app/. && \
     pip install libecl --upgrade
 
 CMD gunicorn \
-    --config="./gunicorn_conf.py" \
+    --access-logfile "-" \
+    --bind 0.0.0.0:5000 \
+    --keep-alive 120 \        
+    --max-requests 40 \
+    --preload \
+    --workers 10 \
+    --worker-class gthread \
+    --worker-tmp-dir /dev/shm \        
+    --threads 4 \
+    --timeout 100000 \
     "dash_app.webviz_app:server"
