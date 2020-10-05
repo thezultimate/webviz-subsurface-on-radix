@@ -1,6 +1,6 @@
 #!/bin/bash
 
-STORAGE_ACCOUNT_NAME="webvizonradix"
+STORAGE_ACCOUNT_NAME="sumolocal"
 CONTAINER_NAME="webviz-data"
 WEBVIZ_CONFIG="../webviz-subsurface-testdata/webviz_examples/webviz-full-demo.yml"
 
